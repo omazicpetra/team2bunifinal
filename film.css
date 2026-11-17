@@ -1,0 +1,103 @@
+* { box-sizing: border-box; }
+body { margin: 0; background: #24251f; color: #f5e9d3; font-family: Helvetica, Arial, sans-serif; }
+button { color: inherit; font: inherit; cursor: pointer; }
+button:focus-visible { outline: 2px solid #f7dcaa; outline-offset: 5px; }
+main { position: relative; height: 100vh; height: 100svh; min-height: 540px; overflow: hidden; isolation: isolate; }
+header, footer { position: absolute; left: 5%; right: 5%; display: flex; align-items: center; gap: 18px; z-index: 10; }
+header { top: 5%; }
+header strong { font-size: clamp(16px, 2vw, 27px); letter-spacing: -1.5px; font-weight: 1000; }
+header span { border-left: 1px solid #d9ccac88; padding-left: 18px; font: italic 18px Georgia, serif; }
+#sound { margin-left: auto; width: 42px; height: 42px; display: grid; place-items: center; border: 1px solid #c4b79760; border-radius: 50%; background: #24251fc9; padding: 0; flex: 0 0 42px; }
+#sound svg { display: block; width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.sound-cross, .muted .sound-waves { display: none; }
+.muted .sound-cross { display: block; }
+#story-content { position: absolute; inset: 0; }
+#entry-gate { position: absolute; inset: 0; z-index: 20; display: grid; place-items: center; background: #11180f80; backdrop-filter: blur(3px); }
+#begin-story { border: 1px solid #c7a66c; border-radius: 3px; padding: 19px 35px; background: #252b20; color: #f4dfb5; font: 23px Georgia, serif; box-shadow: 0 12px 60px #0005; transition: background .25s, transform .25s; }
+#begin-story:hover { background: #3d412d; transform: translateY(-2px); }
+#pages, .scene, .camera, .ambience, .scene-shade, #passage, .passage-camera { position: absolute; inset: 0; }
+.scene { visibility: hidden; isolation: isolate; overflow: hidden; }
+.visible { visibility: visible; }
+.camera { will-change: transform, opacity; }
+.ambience { transform: scale(1.04); }
+.ambience > svg, .cellar-image, .doorway, .passage-camera > svg { position: absolute; width: 100%; height: 100%; object-fit: cover; }
+.scene-shade { pointer-events: none; background: linear-gradient(0deg, #171a13e8 0%, #171a1355 28%, transparent 70%), linear-gradient(90deg, #161b15d9 0%, #161b1580 28%, transparent 68%); }
+/* A warm wash ties the illustrated rooms together without hiding the dark stout. */
+#film::after { content: ''; position: absolute; inset: 0; z-index: 5; pointer-events: none; background: radial-gradient(ellipse at 70% 20%, #eeb74a18, transparent 65%); box-shadow: inset 0 0 130px #14190f40; }
+article { position: absolute; left: 5%; bottom: 16%; width: min(670px, 48%); z-index: 4; }
+small { color: #f2bf83; letter-spacing: .15em; text-transform: uppercase; font-size: 11px; font-weight: 700; }
+h1 { font: normal clamp(46px, 6.5vw, 102px)/.98 Georgia, serif; letter-spacing: -.055em; white-space: pre-line; margin: 21px 0 24px; }
+p { font-size: clamp(15px, 1.3vw, 20px); line-height: 1.6; max-width: 43ch; margin: 0; text-wrap: pretty; color: #eadfc9; }
+.scene-cellar article { width: min(740px, 64%); }
+.scene-cellar h1 { font-size: clamp(54px, 7.8vw, 118px); }
+aside { position: absolute; right: 3.6%; top: 49%; transform: translateY(-50%); width: 80px; display: grid; justify-items: center; gap: 6px; z-index: 10; }
+#lever { background: none; border: 0; width: 70px; height: 148px; padding: 0; cursor: grab; touch-action: none; user-select: none; }
+#lever:active { cursor: grabbing; }
+#lever[aria-busy=true] { cursor: progress; }
+#lever svg { display: block; width: 100%; height: 100%; overflow: visible; }
+#hint { font-size: 11px; line-height: 1.4; text-align: center; text-wrap: balance; }
+footer { bottom: 5%; justify-content: space-between; color: #d4c5a7; font-size: 12px; }
+nav { display: flex; gap: 3px; }
+nav button { width: 54px; height: 32px; background: none; border: 0; padding: 0 3px; }
+nav button::after { content: ''; display: block; height: 2px; background: #b7a98766; transition: background .4s; }
+nav button[aria-current=true]::after { background: #f8bd81; }
+#passage { visibility: hidden; z-index: 3; pointer-events: none; overflow: hidden; }
+#passage.visible { visibility: visible; }
+.passage-camera { transform-origin: 50% 48%; will-change: transform; }
+.door-left, .door-right { transition: transform 1.6s cubic-bezier(.45,0,.2,1); }
+.departing .door-left { transform: translateX(-115px); }
+.departing .door-right { transform: translateX(115px); }
+/* Seamless five-second ambient cycles continue for as long as the reader stays. */
+.playing .ambience { animation: camera-breath 5s ease-in-out infinite; }
+@keyframes camera-breath {
+  0%, 100% { transform: scale(1.04) translate(0,0); }
+  50% { transform: scale(1.055) translate(-.2%, .25%); }
+}
+.lamp-wash { opacity: .65; }
+.playing .lamp-wash { animation: lamplight 5s ease-in-out infinite; }
+@keyframes lamplight { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+.ripple { transform-box: fill-box; transform-origin: center; opacity: 0; }
+.playing .ripple { animation: water-ring 5s ease-out infinite; }
+@keyframes water-ring { 0% { opacity: 0; transform: scale(.82); } 35% { opacity: .22; } 100% { opacity: 0; transform: scale(1.14); } }
+.playing .reflection { animation: water-light 5s ease-in-out infinite; transform-origin: center; }
+.playing .reflection-late { animation-delay: -2.5s; }
+@keyframes water-light { 0%,100% { transform: translate(-5px, 0) skewX(-2deg); opacity: .15; } 50% { transform: translate(6px, 5px) skewX(2deg); opacity: .4; } }
+.playing .beer-bubble { animation: bubble-glimmer 5s ease-in-out infinite; }
+@keyframes bubble-glimmer { 0%,100% { opacity: .1; } 50% { opacity: .6; } }
+.playing .tincture-shimmer { animation: tincture-light 5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+@keyframes tincture-light { 0%,100% { transform: scale(.94) rotate(-5deg); opacity: .25; } 50% { transform: scale(1.03) rotate(5deg); opacity: .65; } }
+.glass-fill { transform: translateY(225px); }
+.pour-stream { stroke-dasharray: 370; stroke-dashoffset: 370; opacity: 0; }
+.pouring-hand { transform-origin: 965px 257px; opacity: 0; }
+.playing .glass-fill { animation: fill-glass 7s 2.3s ease-in-out forwards; }
+.playing .pour-stream { animation: pour-beer 7s 2.3s ease-in-out both; }
+.playing .pouring-hand { animation: serve-beer 7s 2.3s ease-in-out both; }
+@keyframes fill-glass { 0%,15% { transform: translateY(225px); } 83%,100% { transform: translateY(0); } }
+@keyframes pour-beer { 0%,12% { stroke-dashoffset: 370; opacity: 0; } 24%,75% { stroke-dashoffset: 0; opacity: 1; } 87%,100% { stroke-dashoffset: -370; opacity: 0; } }
+@keyframes serve-beer { 0% { transform: translate(90px,-35px) rotate(-14deg); opacity: 0; } 16%,78% { transform: translate(0,0) rotate(0deg); opacity: 1; } 100% { transform: translate(160px,-70px) rotate(-14deg); opacity: 0; } }
+.playing .foam-surface { animation: foam-settle 5s ease-in-out infinite; transform-origin: 965px 403px; }
+@keyframes foam-settle { 0%,100% { transform: scaleY(1); } 50% { transform: scaleY(.85) translateY(2px); } }
+.playing .glass-sheen { animation: lamplight 5s ease-in-out infinite; }
+@media (max-width: 700px) {
+  main { min-height: 650px; }
+  header { top: 3%; gap: 8px; }
+  header span { display: none; }
+  .ambience > svg { width: 160%; left: -60%; }
+  .ambience > .doorway { width: 100%; left: 0; }
+  .scene-shade { background: linear-gradient(0deg, #171a13f5 0%, #171a13df 23%, #171a1360 56%, transparent 85%); }
+  article, .scene-cellar article { width: calc(90% - 42px); bottom: 12%; }
+  h1, .scene-cellar h1 { font-size: clamp(39px, 10vw, 62px); margin: 14px 0 18px; }
+  p { font-size: 14px; line-height: 1.55; max-width: 43ch; }
+  small { font-size: 9px; }
+  aside { right: 0; top: 45%; width: 58px; }
+  #lever { width: 54px; height: 125px; }
+  #hint { font-size: 9px; max-width: 52px; }
+  footer { bottom: 3%; }
+  nav button { width: 40px; }
+}
+@media (max-height: 650px) and (min-width: 701px) {
+  main { min-height: 430px; }
+  article { bottom: 15%; }
+  h1, .scene-cellar h1 { font-size: 50px; margin: 14px 0; }
+  p { font-size: 14px; }
+}
