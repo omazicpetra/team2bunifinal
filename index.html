@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Follow Calypso’s Temptation through the Moersleutel cellar, from whiskey barrels and vanilla trials to the final glass.">
+  <title>Inside the Blend · Calypso’s Temptation</title>
+  <link rel="stylesheet" href="film.css">
+  <script defer src="art.js"></script>
+  <script defer src="audio-config.js"></script>
+  <script defer src="audio.js"></script>
+  <script defer src="story.js"></script>
+</head>
+<body>
+  <main id="film">
+    <div id="story-content" inert>
+    <header>
+      <strong>MOERSLEUTEL</strong>
+      <span>The Guild</span>
+      <button id="sound" type="button" aria-label="Mute music and voice-over" aria-pressed="false">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9h4l5-4v14l-5-4H3Z"/><path class="sound-waves" d="M15 8q4 4 0 8m3-11q7 7 0 14"/><path class="sound-cross" d="m16 9 5 6m0-6-5 6"/></svg>
+      </button>
+    </header>
+    <section id="pages" aria-label="Beer story"></section>
+    <div id="passage" aria-hidden="true"><div class="passage-camera"></div></div>
+    <aside>
+      <button id="lever" type="button" aria-label="Pull down or tap to advance">
+        <svg viewBox="0 0 70 148" aria-hidden="true">
+          <rect x="15" y="39" width="40" height="72" rx="4" fill="#776d55" stroke="#332e26" stroke-width="2"/>
+          <rect x="23" y="49" width="24" height="52" rx="10" fill="#302e25"/>
+          <circle cx="35" cy="75" r="8" fill="#a89267"/>
+          <line id="shaft" x1="35" y1="75" x2="35" y2="19" stroke="#b57d48" stroke-width="10" stroke-linecap="round"/>
+          <g id="grip">
+            <rect x="23" y="8" width="24" height="24" rx="5" fill="#dbc4a0" stroke="#3f382d" stroke-width="2"/>
+            <path d="M26 16h18m-18 7h18" stroke="#8e795d" stroke-width="2"/>
+          </g>
+        </svg>
+      </button>
+      <span id="hint">Pull down or tap</span>
+    </aside>
+    <footer>
+      <nav id="scene-nav" aria-label="Scenes"></nav>
+      <span id="count" aria-live="polite"></span>
+    </footer>
+    </div>
+    <div id="entry-gate">
+      <button id="begin-story" type="button">Enter the cellar</button>
+    </div>
+    <audio id="music" loop preload="none" src="assets/cellar-music.mp3"></audio>
+  </main>
+</body>
+</html>
